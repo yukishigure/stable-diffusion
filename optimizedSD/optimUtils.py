@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-
+import torch
 
 def split_weighted_subprompts(text):
     """
@@ -71,3 +71,9 @@ def logger(params, log_csv):
 
     df = pd.DataFrame(li,index = [0])
     df.to_csv(log_csv,index=False, mode='a', header=False)
+
+def seamless_init(klass, mode : str):
+	init = klass.__init__
+	def __init__(self, *args, **kwargs):
+		return init(self, *args, **kwargs, padding_mode = mode)
+	klass.__init__ = __init__
