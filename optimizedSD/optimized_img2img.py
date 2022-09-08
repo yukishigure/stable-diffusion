@@ -17,6 +17,7 @@ from ldm.util import instantiate_from_config
 from optimUtils import split_weighted_subprompts, logger
 from transformers import logging
 import pandas as pd
+from googletrans import Translator
 logging.set_verbosity_error()
 
 
@@ -174,7 +175,32 @@ parser.add_argument(
     choices=["ddim"],
     default="ddim",
 )
+parser.add_argument(
+    "--seamless",
+    type=str,
+    help="seamless",
+    choices=["reflect", "circular"],
+    default=None
+)
+parser.add_argument(
+    "--translate",
+    type=str,
+    help="Translate Language",
+    choices=['jp'],
+    default=None
+)
 opt = parser.parse_args()
+
+# Seamless
+if opt.seamless is not None:
+    for klass in [torch.nn.Conv2d, torch.nn.ConvTranspose2d]:
+        seamless_init(klass, opt.seamless)
+    opt.strength = 1.0
+
+# translate
+if opt.translate is not None:
+    translator = Translator()
+    opt.prompt = translator.translate(opt.prompt, src=opt.translate, dest='en').text
 
 tic = time.time()
 os.makedirs(opt.outdir, exist_ok=True)
