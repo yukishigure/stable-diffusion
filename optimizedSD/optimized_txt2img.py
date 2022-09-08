@@ -179,7 +179,7 @@ parser.add_argument(
     "--translate",
     type=str,
     help="Translate Language",
-    choices=['jp'],
+    choices=['ja'],
     default=None
 )
 opt = parser.parse_args()
