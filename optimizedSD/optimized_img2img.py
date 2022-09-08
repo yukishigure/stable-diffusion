@@ -178,7 +178,7 @@ parser.add_argument(
     "--seamless",
     type=str,
     help="seamless",
-    choices=["zeros", "reflect", "replicate", "circular"],
+    choices=["reflect", "circular"],
     default=None
 )
 opt = parser.parse_args()
