@@ -13,7 +13,7 @@ from pytorch_lightning import seed_everything
 from torch import autocast
 from contextlib import contextmanager, nullcontext
 from ldm.util import instantiate_from_config
-from optimUtils import split_weighted_subprompts, logger
+from optimUtils import split_weighted_subprompts, logger, seamless_init
 from transformers import logging
 from googletrans import Translator
 # from samplers import CompVisDenoiser
