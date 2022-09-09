@@ -13,17 +13,17 @@
 ## `--translate`  
 promptに英語以外の言語を使用することが出来ます。  
 
-### 引数  
+### バリエーション  
 - `--translate ja`  
 promptを日本語から英語に翻訳します
 
 ### デフォルト値
-`None`
-
+`None`  
+  
 ## `--seamless`
 シームレスな画像を出力することが出来ます
 
-### 引数
+### バリエーション
 - `--seamless reflect`  
 各辺で反転させて配置することを想定したシームレス画像を出力します  
 
@@ -32,16 +32,16 @@ promptを日本語から英語に翻訳します
 
 ### デフォルト値  
 `None`  
-
+  
 ## `--ckpt`  
 使用するモデルファイル(.ckptファイル)を変更します  
 
-### 引数  
+### バリエーション  
 - `--ckpt [ファイルパス]`  
 使用するモデルを、ファイルパスで指定したckptファイルで上書きします  
 
 ### デフォルト値  
 `models/ldm/stable-diffusion-v1/model.ckpt`
-
+  
 # 本家README  
 [optimizedSD/README.md](optimizedSD/README.md)
