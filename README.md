@@ -35,4 +35,4 @@ promptを日本語から英語に翻訳します
 
 
 # 本家README
-[optimizedSD/README.md]("optimizedSD/README.md")
+[optimizedSD/README.md]("/optimizedSD/README.md")
