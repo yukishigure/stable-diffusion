@@ -9,7 +9,7 @@
 - Seamless Texture対応
 - 日本語prompt対応
 
-# コマンド
+# 引数
 ## `--translate`  
 promptに英語以外の言語を使用することが出来ます。  
 
@@ -28,11 +28,20 @@ promptを日本語から英語に翻訳します
 各辺で反転させて配置することを想定したシームレス画像を出力します  
 
 - `--seamless circular`  
-敷き詰めて配置することを想定したシームレス画像を出力します
+敷き詰めて配置することを想定したシームレス画像を出力します  
 
-### デフォルト値
-`None`
+### デフォルト値  
+`None`  
 
+## `--ckpt`  
+使用するモデルファイル(.ckptファイル)を変更します  
 
-# 本家README
+### 引数  
+- `--ckpt [ファイルパス]`  
+使用するモデルを、ファイルパスで指定したckptファイルで上書きします  
+
+### デフォルト値  
+`models/ldm/stable-diffusion-v1/model.ckpt`
+
+# 本家README  
 [optimizedSD/README.md](optimizedSD/README.md)

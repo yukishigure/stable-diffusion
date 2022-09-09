@@ -189,6 +189,13 @@ parser.add_argument(
     choices=['ja'],
     default=None
 )
+parser.add_argument(
+    "--ckpt",
+    type=str,
+    nargs="?",
+    help="ckpt path",
+    default=None
+)
 opt = parser.parse_args()
 
 # Seamless
@@ -201,6 +208,10 @@ if opt.seamless is not None:
 if opt.translate is not None:
     translator = Translator()
     opt.prompt = translator.translate(opt.prompt, src=opt.translate, dest='en').text
+
+# ckpt
+if opt.ckpt is not None:
+    ckpt = opt.ckpt
 
 tic = time.time()
 os.makedirs(opt.outdir, exist_ok=True)
