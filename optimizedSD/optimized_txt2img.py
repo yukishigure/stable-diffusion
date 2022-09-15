@@ -186,7 +186,7 @@ parser.add_argument(
     "--ckpt",
     type=str,
     nargs="?",
-    help="ckph path",
+    help="ckpt path",
     default=None
 )
 opt = parser.parse_args()
