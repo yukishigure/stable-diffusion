@@ -165,8 +165,8 @@ parser.add_argument(
     "--sampler",
     type=str,
     help="sampler",
-    choices=["ddim", "plms","heun", "euler", "euler_a", "dpm2", "dpm2_a", "lms"],
-    default="plms",
+    choices=["ddim", "plms", "heun", "euler", "euler_a", "dpm2", "dpm2_a", "lms"],
+    default="ddim",
 )
 parser.add_argument(
     "--seamless",
