@@ -77,3 +77,16 @@ def seamless_init(klass, mode : str):
 	def __init__(self, *args, **kwargs):
 		return init(self, *args, **kwargs, padding_mode = mode)
 	klass.__init__ = __init__
+
+def vectorize_prompt(modelCS, batch_size, prompt):
+    empty_result = modelCS.get_learned_conditioning(batch_size * [""])
+    result = torch.zeros_like(empty_result)
+    subprompts, weights = split_weighted_subprompts(prompt)
+    weights_sum = sum(weights)
+    cntr = 0
+    for i, subprompt in enumerate(subprompts):
+        cntr += 1
+        result = torch.add(result, modelCS.get_learned_conditioning(batch_size * [subprompt]), alpha=weights[i] / weights_sum)
+    if cntr == 0:
+        result = empty_result
+    return result

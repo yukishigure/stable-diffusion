@@ -14,7 +14,7 @@ from torch import autocast
 from contextlib import contextmanager, nullcontext
 from einops import rearrange, repeat
 from ldm.util import instantiate_from_config
-from optimUtils import split_weighted_subprompts, logger, seamless_init
+from optimUtils import split_weighted_subprompts, logger, seamless_init, vectorize_prompt
 from transformers import logging
 import pandas as pd
 from googletrans import Translator
@@ -61,6 +61,9 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument(
     "--prompt", type=str, nargs="?", default="a painting of a virus monster playing guitar", help="the prompt to render"
+)
+parser.add_argument(
+    "--nprompt", type=str, default="", help="the negative prompt to render"
 )
 parser.add_argument("--outdir", type=str, nargs="?", help="dir to write results to", default="outputs/img2img-samples")
 parser.add_argument("--init-img", type=str, nargs="?", help="path to the input image")
@@ -309,6 +312,8 @@ with torch.no_grad():
         for prompts in tqdm(data, desc="data"):
 
             sample_path = os.path.join(outpath, "_".join(re.split(":| ", prompts[0])))[:150]
+            if prompts[0] == "":
+                sample_path = os.path.join(outpath, "empty_prompt")
             os.makedirs(sample_path, exist_ok=True)
             base_count = len(os.listdir(sample_path))
 
@@ -316,22 +321,10 @@ with torch.no_grad():
                 modelCS.to(opt.device)
                 uc = None
                 if opt.scale != 1.0:
-                    uc = modelCS.get_learned_conditioning(batch_size * [""])
+                    uc = vectorize_prompt(modelCS, batch_size, opt.nprompt)
                 if isinstance(prompts, tuple):
                     prompts = list(prompts)
-
-                subprompts, weights = split_weighted_subprompts(prompts[0])
-                if len(subprompts) > 1:
-                    c = torch.zeros_like(uc)
-                    totalWeight = sum(weights)
-                    # normalize each "sub prompt" and add it
-                    for i in range(len(subprompts)):
-                        weight = weights[i]
-                        # if not skip_normalize:
-                        weight = weight / totalWeight
-                        c = torch.add(c, modelCS.get_learned_conditioning(subprompts[i]), alpha=weight)
-                else:
-                    c = modelCS.get_learned_conditioning(prompts)
+                c = vectorize_prompt(modelCS, batch_size, prompts[0])
 
                 if opt.device != "cpu":
                     mem = torch.cuda.memory_allocated(device=opt.device) / 1e6
