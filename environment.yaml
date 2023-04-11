@@ -4,6 +4,7 @@ channels:
   - defaults
 dependencies:
   - git
+  - git-lfs
   - python=3.8.5
   - pip=20.3
   - cudatoolkit=11.3
