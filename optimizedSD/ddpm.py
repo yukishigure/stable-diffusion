@@ -506,9 +506,8 @@ class UNet(DDPM):
 
         x_latent = noise if x0 is None else x0
         # sampling
-        
+        self.make_schedule(ddim_num_steps=S, ddim_eta=eta, verbose=False)
         if sampler == "plms":
-            self.make_schedule(ddim_num_steps=S, ddim_eta=eta, verbose=False)
             print(f'Data shape for PLMS sampling is {shape}')
             samples = self.plms_sampling(conditioning, batch_size, x_latent,
                                         callback=callback,
@@ -531,11 +530,9 @@ class UNet(DDPM):
                                          mask = mask,init_latent=x_T,use_original_steps=False)
 
         elif sampler == "euler":
-            self.make_schedule(ddim_num_steps=S, ddim_eta=eta, verbose=False)
             samples = self.euler_sampling(self.alphas_cumprod,x_latent, S, conditioning, unconditional_conditioning=unconditional_conditioning,
                                         unconditional_guidance_scale=unconditional_guidance_scale)
         elif sampler == "euler_a":
-            self.make_schedule(ddim_num_steps=S, ddim_eta=eta, verbose=False)
             samples = self.euler_ancestral_sampling(self.alphas_cumprod,x_latent, S, conditioning, unconditional_conditioning=unconditional_conditioning,
                                         unconditional_guidance_scale=unconditional_guidance_scale)
 
