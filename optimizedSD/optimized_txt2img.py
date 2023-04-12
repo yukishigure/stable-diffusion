@@ -201,7 +201,10 @@ if opt.seamless is not None:
 # translate
 if opt.translate is not None:
     translator = Translator()
-    opt.prompt = translator.translate(opt.prompt, src=opt.translate, dest='en').text
+    if opt.prompt != "":
+        opt.prompt = translator.translate(opt.prompt, src=opt.translate, dest='en').text
+    if opt.nprompt != "":
+        opt.nprompt = translator.translate(opt.nprompt, scr=opt.translate, dest='en').text
 
 tic = time.time()
 os.makedirs(opt.outdir, exist_ok=True)
