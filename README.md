@@ -1,13 +1,15 @@
 # Optimized Stable Diffusion
 
 本リポジトリは、[@basujindal](https://github.com/basujindal)氏による[Optimized Stable Diffusion](https://github.com/basujindal/stable-diffusion)のフォーク版です。  
-[Optimized Stable Diffusion GUI Tool](https://booth.pm/ja/items/4118603)での操作に最適化するための機能追加や、変更を行っています。  
+[Optimized Stable Diffusion GUI Tool](https://booth.pm/ja/items/4118603)での操作に最適化するための機能追加や、変更、バグ修正などを行っています。  
 また、GUI Toolとの連携を意識して開発を進めていますが、他のStable Diffusionのリポジトリと同様、CUIで実行することも可能です。  
 
 # yukishigure版の特徴
-- Optimized Stable Diffusionからのフォークのため、4GB以下のVRAM環境でも動作
+- Optimized Stable Diffusionからのフォークのため、2.4GB以下のVRAM環境でも512x512解像度の画像出力が可能
 - Seamless Texture対応
-- 日本語prompt対応
+- 日本語Prompt対応
+- NegativePrompt対応
+- 8種類のSamplerに対応（※img2imgは7種類）
 
 # 引数
 ## `--translate`  
